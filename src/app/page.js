@@ -1,6 +1,6 @@
 
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Mail, Lock, Eye, EyeOff, AlertCircle, Loader } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,7 @@ import { useAuth } from "@/context/authcontext";
 import { GoogleLogin } from "@react-oauth/google";
 import { googleLogin, loginEmail } from "@/service/authService";
 import { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -18,8 +19,34 @@ export default function LoginPage() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, isAuthenticated, role } = useAuth();
+  const [checking, setChecking] = useState(true);
 
+  const router = useRouter()
+  useEffect(() => {
+    const checkAuth = () => {
+      try {
+        const storedToken = localStorage.getItem("token");
+
+        if (storedToken && isAuthenticated && role) {
+          // Redirect dựa trên role
+          if (role === "Admin") {
+            router.push("/admin/dashboard");
+          } else if (role === "Manager") {
+            router.push("/manager");
+          } else if (role === "Member") {
+            router.push("/member");
+          }
+        }
+      } catch (error) {
+        console.error("Auth check error:", error);
+      } finally {
+        setChecking(false);
+      }
+    };
+
+    checkAuth();
+  }, [isAuthenticated, role, router]);
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
@@ -91,7 +118,16 @@ export default function LoginPage() {
   const handleGoogleLoginError = () => {
     setError("Đăng nhập Google thất bại. Vui lòng thử lại.");
   };
-
+  if (checking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+        <div className="text-center">
+          <Loader className="h-12 w-12 animate-spin text-white mx-auto mb-4" />
+          <p className="text-white text-lg font-medium">Đang kiểm tra đăng nhập...</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 px-4 py-12 sm:px-6 lg:px-8">
       {/* Decorative elements */}
@@ -191,7 +227,7 @@ export default function LoginPage() {
                       name="email"
                       autoComplete="email"
                       className="appearance-none block w-full h-12 pl-10 pr-3 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
-                      placeholder="email@university.edu.vn"
+                      placeholder="example@gmail.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
