@@ -11,4 +11,8 @@ export const getMyTasks = async (boardId) => {
     const response = await baseURL.get(`/tasks/boards/${boardId}/my-tasks`)
     return response.data
 }
+export const uploadResult = async (boardId, data) => {
+    const response = await baseURL.put(`/tasks/${boardId}/upload-result`, data)
+    return response.data
+}
 

@@ -100,10 +100,10 @@ export default function LoginPage() {
     try {
       setLoading(true);
       const loginGoogle = await googleLogin({ idToken: response.credential });
-      console.log(loginGoogle);
+      console.log(loginGoogle.token);
 
-      if (loginGoogle.status === 200) {
-        login(loginGoogle.data.data || loginGoogle.data);
+      if (loginGoogle.status === "sucess") {
+        login(loginGoogle.token);
         setLoading(false);
       }
     } catch (error) {

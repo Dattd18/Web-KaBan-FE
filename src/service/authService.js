@@ -9,6 +9,6 @@ export const register = async (data) => {
     return response.data;
 }
 export const googleLogin = async (data) => {
-    const response = await baseURL.post("/auth/google-login", data);
+    const response = await baseURL.post("/auth/login-google", data);
     return response.data;
 }

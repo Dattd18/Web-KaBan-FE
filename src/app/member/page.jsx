@@ -11,8 +11,15 @@ import {
   AlertCircle,
   LogOut,
   FileText,
+  Upload,
+  Image as ImageIcon,
 } from "lucide-react";
-import { getMyBoard, getMyTasks, getUser } from "@/service/member";
+import {
+  getMyBoard,
+  getMyTasks,
+  getUser,
+  uploadResult,
+} from "@/service/member";
 import toast, { Toaster } from "react-hot-toast";
 import {
   getCommentTaskByManager,
@@ -37,8 +44,10 @@ export default function MemberDashboard() {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [loading, setLoading] = useState(false);
-  const [activeView, setActiveView] = useState("my-tasks"); // my-tasks | all-tasks
+  const [activeView, setActiveView] = useState("my-tasks");
   const [currentUser, setCurrentUser] = useState(null);
+  const [resultFiles, setResultFiles] = useState([]);
+  const [uploadingResult, setUploadingResult] = useState(false);
   const router = useRouter();
   const { logout } = useAuth();
   const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "wss://localhost:3001";
@@ -64,7 +73,6 @@ export default function MemberDashboard() {
 
         if (isAssignedToMe) {
           if (type === "TASK_UPDATED") {
-            // ✅ Update state trực tiếp
             if (activeView === "my-tasks") {
               setMyTasks((prevTasks) =>
                 prevTasks.map((t) => (t._id === payload._id ? payload : t))
@@ -97,6 +105,7 @@ export default function MemberDashboard() {
       websocket.close();
     };
   }, []);
+
   const handleLogout = () => {
     logout();
     router.push("/");
@@ -116,7 +125,7 @@ export default function MemberDashboard() {
     try {
       const data = await getUser();
       if (data.status === "success") {
-        setCurrentUser(data.data);
+        setCurrentUser(data.data.result);
       }
     } catch (error) {
       console.error("Error loading user:", error);
@@ -218,7 +227,51 @@ export default function MemberDashboard() {
 
   const openTaskDetail = (task) => {
     setSelectedTask(task);
+    setResultFiles([]);
     loadComments(task._id);
+  };
+
+  const handleResultFileSelect = (e) => {
+    const files = Array.from(e.target.files);
+    setResultFiles([...resultFiles, ...files]);
+  };
+
+  const handleUploadResult = async () => {
+    if (!selectedTask || resultFiles.length === 0) {
+      toast.error("Vui lòng chọn ít nhất 1 file");
+      return;
+    }
+
+    try {
+      setUploadingResult(true);
+      const formData = new FormData();
+      resultFiles.forEach((file) => {
+        formData.append("attachments", file);
+      });
+
+      const data = await uploadResult(selectedTask._id, formData);
+
+      if (data.status === "success") {
+        toast.success("Upload kết quả thành công!");
+        setResultFiles([]);
+
+        if (activeView === "my-tasks") {
+          setMyTasks(
+            myTasks.map((t) => (t._id === selectedTask._id ? data.data : t))
+          );
+        } else {
+          setAllTasks(
+            allTasks.map((t) => (t._id === selectedTask._id ? data.data : t))
+          );
+        }
+        setSelectedTask(data.data);
+      }
+    } catch (error) {
+      console.error("Error uploading result:", error);
+      toast.error("Upload thất bại!");
+    } finally {
+      setUploadingResult(false);
+    }
   };
 
   const getTasksByStatus = (status) => {
@@ -239,6 +292,8 @@ export default function MemberDashboard() {
   };
 
   const stats = getTaskStats();
+  console.log(currentUser);
+
   const isMyTask = (task) => {
     return task.assignees?.some((a) => a._id === currentUser?._id);
   };
@@ -451,24 +506,6 @@ export default function MemberDashboard() {
                               </div>
 
                               {/* Quick Status Update for My Tasks */}
-                              {isAssignedToMe && activeView === "my-tasks" && (
-                                <div className="mt-3 pt-3 border-t flex gap-2">
-                                  {STATUSES.filter(
-                                    (s) => s.id !== task.status
-                                  ).map((s) => (
-                                    <button
-                                      key={s.id}
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        updateTaskStatus(task._id, s.id);
-                                      }}
-                                      className={`flex-1 px-2 py-1 text-xs rounded ${s.color} text-white hover:opacity-80 transition`}
-                                    >
-                                      → {s.name}
-                                    </button>
-                                  ))}
-                                </div>
-                              )}
                             </div>
                           );
                         })}
@@ -594,34 +631,157 @@ export default function MemberDashboard() {
                     </div>
                   </div>
                 )}
-
-              {/* Update Status */}
-              {isMyTask(selectedTask) && (
-                <div>
-                  <h4 className="text-sm font-semibold text-gray-700 mb-2">
-                    Update Status
-                  </h4>
-                  <div className="flex gap-2">
-                    {STATUSES.map((status) => (
-                      <button
-                        key={status.id}
-                        onClick={() => {
-                          updateTaskStatus(selectedTask._id, status.id);
-                          setSelectedTask({
-                            ...selectedTask,
-                            status: status.id,
-                          });
-                        }}
-                        className={`px-4 py-2 rounded-lg transition ${
-                          selectedTask.status === status.id
-                            ? `${status.color} text-white`
-                            : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                        }`}
-                      >
-                        {status.name}
-                      </button>
-                    ))}
+              {selectedTask.result &&
+                selectedTask.result.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-700 mb-2">
+                      Task Result
+                    </h4>
+                    <div className="space-y-2">
+                      {selectedTask.result.map((attachment, idx) => (
+                        <a
+                          key={idx}
+                          href={attachment.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
+                        >
+                          {attachment.type === "image" ? (
+                            <ImageIcon size={16} className="text-blue-500" />
+                          ) : (
+                            <FileText size={16} className="text-gray-500" />
+                          )}
+                          <span className="text-sm text-gray-700 flex-1 truncate">
+                            {attachment.name}
+                          </span>
+                          <span className="text-xs text-blue-600">
+                            Download
+                          </span>
+                        </a>
+                      ))}
+                    </div>
                   </div>
+                )}
+
+              {/* Upload Result Section - CODE UI MỚI */}
+              {isMyTask(selectedTask) && (
+                <div className="border-t pt-6">
+                  <h4 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                    <Upload size={18} />
+                    Upload Kết Quả
+                  </h4>
+
+                  {/* File Input */}
+                  <div className="mb-3">
+                    <label className="flex items-center justify-center w-full px-4 py-3 bg-purple-50 text-purple-600 rounded-lg border-2 border-dashed border-purple-300 cursor-pointer hover:bg-purple-100 transition">
+                      <Upload size={20} className="mr-2" />
+                      <span className="text-sm font-medium">
+                        Chọn file kết quả
+                      </span>
+                      <input
+                        type="file"
+                        multiple
+                        onChange={handleResultFileSelect}
+                        className="hidden"
+                        accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt"
+                      />
+                    </label>
+                  </div>
+
+                  {/* Selected Files List */}
+                  {resultFiles.length > 0 && (
+                    <div className="space-y-2 mb-3">
+                      {resultFiles.map((file, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg"
+                        >
+                          <div className="flex items-center gap-2 flex-1 min-w-0">
+                            {file.type?.startsWith("image/") ? (
+                              <ImageIcon
+                                size={16}
+                                className="text-blue-500 flex-shrink-0"
+                              />
+                            ) : (
+                              <FileText
+                                size={16}
+                                className="text-gray-500 flex-shrink-0"
+                              />
+                            )}
+                            <span className="text-sm text-gray-700 truncate">
+                              {file.name}
+                            </span>
+                            <span className="text-xs text-gray-400 flex-shrink-0">
+                              ({(file.size / 1024).toFixed(1)} KB)
+                            </span>
+                          </div>
+                          <button
+                            onClick={() => {
+                              setResultFiles(
+                                resultFiles.filter((_, i) => i !== index)
+                              );
+                            }}
+                            className="text-red-500 hover:text-red-700 ml-2 flex-shrink-0"
+                          >
+                            <X size={16} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Upload Button */}
+                  {resultFiles.length > 0 && (
+                    <button
+                      onClick={handleUploadResult}
+                      disabled={uploadingResult}
+                      className="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    >
+                      {uploadingResult ? (
+                        <>
+                          <Clock size={18} className="animate-spin" />
+                          Đang upload...
+                        </>
+                      ) : (
+                        <>
+                          <Upload size={18} />
+                          Upload Kết Quả ({resultFiles.length} file)
+                        </>
+                      )}
+                    </button>
+                  )}
+
+                  {/* Uploaded Results Display */}
+                  {selectedTask.results && selectedTask.results.length > 0 && (
+                    <div className="mt-4 pt-4 border-t">
+                      <h5 className="text-xs font-semibold text-gray-600 mb-2">
+                        Kết quả đã upload ({selectedTask.results.length})
+                      </h5>
+                      <div className="space-y-2">
+                        {selectedTask.results.map((result, idx) => (
+                          <a
+                            key={idx}
+                            href={result.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 p-2 bg-green-50 rounded-lg hover:bg-green-100 transition border border-green-200"
+                          >
+                            {result.type === "image" ? (
+                              <ImageIcon size={16} className="text-green-600" />
+                            ) : (
+                              <FileText size={16} className="text-green-600" />
+                            )}
+                            <span className="text-sm text-gray-700 flex-1 truncate">
+                              {result.name}
+                            </span>
+                            <span className="text-xs text-green-600 font-medium">
+                              Xem
+                            </span>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
