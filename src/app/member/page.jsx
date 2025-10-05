@@ -40,7 +40,7 @@ export default function MemberDashboard() {
   const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
   const { logout } = useAuth();
-  const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:3001";
+  const WS_URL = process.env.NEXT_PUBLIC_WS_URL || "wss://localhost:3001";
 
   useEffect(() => {
     loadCurrentUser();
