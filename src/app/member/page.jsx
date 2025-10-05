@@ -10,6 +10,7 @@ import {
   Clock,
   AlertCircle,
   LogOut,
+  FileText,
 } from "lucide-react";
 import { getMyBoard, getMyTasks, getUser } from "@/service/member";
 import toast, { Toaster } from "react-hot-toast";
@@ -551,11 +552,7 @@ export default function MemberDashboard() {
                         {selectedTask.assignees.map((assignee) => (
                           <span
                             key={assignee._id}
-                            className={`px-2 py-1 text-xs rounded-full ${
-                              assignee._id === currentUser?._id
-                                ? "bg-purple-100 text-purple-700 font-medium"
-                                : "bg-gray-100 text-gray-700"
-                            }`}
+                            className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full"
                           >
                             {assignee.fullName || assignee.email}
                           </span>
@@ -564,6 +561,39 @@ export default function MemberDashboard() {
                     </div>
                   )}
               </div>
+
+              {/* Task Attachments */}
+              {selectedTask.attachments &&
+                selectedTask.attachments.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-700 mb-2">
+                      Task Attachments
+                    </h4>
+                    <div className="space-y-2">
+                      {selectedTask.attachments.map((attachment, idx) => (
+                        <a
+                          key={idx}
+                          href={attachment.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
+                        >
+                          {attachment.type === "image" ? (
+                            <ImageIcon size={16} className="text-blue-500" />
+                          ) : (
+                            <FileText size={16} className="text-gray-500" />
+                          )}
+                          <span className="text-sm text-gray-700 flex-1 truncate">
+                            {attachment.name}
+                          </span>
+                          <span className="text-xs text-blue-600">
+                            Download
+                          </span>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
               {/* Update Status */}
               {isMyTask(selectedTask) && (
