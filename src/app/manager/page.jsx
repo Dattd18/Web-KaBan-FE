@@ -831,7 +831,7 @@ export default function TaskManagement() {
                     <h4 className="text-sm font-semibold text-gray-900  mb-2">
                       Description
                     </h4>
-                    <p className="text-black-600">{selectedTask.description}</p>
+                    <p className="text-gray-900">{selectedTask.description}</p>
                   </div>
                 )}
 
@@ -853,7 +853,7 @@ export default function TaskManagement() {
                   {selectedTask.assignees &&
                     selectedTask.assignees.length > 0 && (
                       <div>
-                        <h4 className="text-xs font-semibold text-black-600 mb-1">
+                        <h4 className="text-xs font-semibold text-gray-900 mb-1">
                           Assignees
                         </h4>
                         <div className="flex items-center gap-2 flex-wrap">
@@ -887,11 +887,11 @@ export default function TaskManagement() {
                             className="text-gray-900 flex items-center gap-2 p-2 bg-black-50 rounded-lg hover:bg-black-100 transition"
                           >
                             {attachment.type === "image" ? (
-                              <ImageIcon size={16} className="text-blue-500" />
+                              <ImageIcon size={16} className="text-blue-900" />
                             ) : (
-                              <FileText size={16} className="text-black-500" />
+                              <FileText size={16} className="text-gray-900" />
                             )}
-                            <span className="text-sm text-gray-900  flex-1 truncate">
+                            <span className="text-sm text-gray-900 flex-1 truncate">
                               {attachment.name}
                             </span>
                             <span className="text-xs text-blue-900">
