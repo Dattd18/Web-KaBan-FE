@@ -234,7 +234,7 @@ export default function RegisterPage() {
                       name="fullName"
                       type="text"
                       autoComplete="name"
-                      className="text-black-700 appearance-none block w-full h-12 pl-10 pr-3 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
+                      className="text-gray-900  appearance-none block w-full h-12 pl-10 pr-3 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
                       placeholder="Nguyễn Văn A"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
@@ -265,7 +265,7 @@ export default function RegisterPage() {
                       name="email"
                       type="email"
                       autoComplete="email"
-                      className="text-black-700 appearance-none block w-full h-12 pl-10 pr-3 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
+                      className="text-gray-900  appearance-none block w-full h-12 pl-10 pr-3 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
                       placeholder="email@university.edu.vn"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -296,7 +296,7 @@ export default function RegisterPage() {
                       name="password"
                       type={showPassword ? "text" : "password"}
                       autoComplete="new-password"
-                      className="text-black-700 appearance-none block w-full h-12 pl-10 pr-10 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
+                      className="text-gray-900  appearance-none block w-full h-12 pl-10 pr-10 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
@@ -340,7 +340,7 @@ export default function RegisterPage() {
                       name="confirmPassword"
                       type={showConfirmPassword ? "text" : "password"}
                       autoComplete="new-password"
-                      className="text-black-700 appearance-none block w-full h-12 pl-10 pr-10 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
+                      className="text-gray-900  appearance-none block w-full h-12 pl-10 pr-10 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
                       placeholder="••••••••"
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}

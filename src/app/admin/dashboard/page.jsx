@@ -320,7 +320,7 @@ export default function AdminDashboard() {
               <select
                 value={selectedBoard}
                 onChange={handleBoardChange}
-                className="w-full md:w-96 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
+                className="text-gray-900 w-full md:w-96 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-sm"
               >
                 <option value="">-- Chọn Board --</option>
                 {boards.map((board) => (
@@ -670,7 +670,7 @@ export default function AdminDashboard() {
                             <select
                               value={selectedRole}
                               onChange={(e) => setSelectedRole(e.target.value)}
-                              className="px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium"
+                              className="text-gray-900 px-3 py-1.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium"
                             >
                               <option value="">-- Chọn Role --</option>
                               {ROLES.map((role) => (
