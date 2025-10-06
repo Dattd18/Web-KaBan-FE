@@ -874,7 +874,7 @@ export default function TaskManagement() {
                 {selectedTask.attachments &&
                   selectedTask.attachments.length > 0 && (
                     <div>
-                      <h4 className="text-sm font-semibold text-gray-900  mb-2">
+                      <h4 className="text-sm font-semibold text-gray-900 mb-2">
                         Task Attachments
                       </h4>
                       <div className="space-y-2">
@@ -884,7 +884,7 @@ export default function TaskManagement() {
                             href={attachment.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 p-2 bg-black-50 rounded-lg hover:bg-black-100 transition"
+                            className="text-gray-900 flex items-center gap-2 p-2 bg-black-50 rounded-lg hover:bg-black-100 transition"
                           >
                             {attachment.type === "image" ? (
                               <ImageIcon size={16} className="text-blue-500" />
@@ -894,7 +894,7 @@ export default function TaskManagement() {
                             <span className="text-sm text-gray-900  flex-1 truncate">
                               {attachment.name}
                             </span>
-                            <span className="text-xs text-blue-600">
+                            <span className="text-xs text-blue-900">
                               Download
                             </span>
                           </a>
