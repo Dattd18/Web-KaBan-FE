@@ -518,9 +518,9 @@ export default function TaskManagement() {
       {/* Create Board Modal */}
       {showBoardModal && (
         <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-gray-200 rounded-lg p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-semibold">Create New Board</h3>
+              <h3 className="text-xl font-bold">Create New Board</h3>
               <button onClick={() => setShowBoardModal(false)}>
                 <X size={24} className="text-gray-500 hover:text-gray-700" />
               </button>
@@ -528,7 +528,7 @@ export default function TaskManagement() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-900 mb-2">
                   Board Name *
                 </label>
                 <input
@@ -604,9 +604,9 @@ export default function TaskManagement() {
       {/* Create Task Modal */}
       {showTaskModal && (
         <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+          <div className="bg-gray-200 rounded-lg p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-semibold">Create New Task</h3>
+              <h3 className="text-xl font-bold">Create New Task</h3>
               <button onClick={() => setShowTaskModal(false)}>
                 <X size={24} className="text-gray-500 hover:text-gray-700" />
               </button>
@@ -805,8 +805,8 @@ export default function TaskManagement() {
 
       {/* Task Detail Modal with Comments */}
       {showTaskDetailModal && selectedTask && (
-        <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col">
+        <div className="fixed inset-0   bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-gray-200 rounded-lg w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col">
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b">
               <div className="flex-1">

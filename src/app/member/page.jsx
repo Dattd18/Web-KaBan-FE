@@ -528,7 +528,7 @@ export default function MemberDashboard() {
       {/* Task Detail Modal */}
       {selectedTask && (
         <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col">
+          <div className="bg-gray-200 rounded-lg w-full max-w-3xl max-h-[90vh] overflow-hidden flex flex-col">
             <div className="flex items-center justify-between p-6 border-b">
               <div className="flex-1">
                 <h3 className="text-2xl font-semibold text-gray-800">
