@@ -520,7 +520,7 @@ export default function TaskManagement() {
         <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-gray-200 rounded-lg p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold">Create New Board</h3>
+              <h3 className="text-xl font-bold text-black-500">Create New Board</h3>
               <button onClick={() => setShowBoardModal(false)}>
                 <X size={24} className="text-gray-500 hover:text-gray-700" />
               </button>
@@ -543,7 +543,7 @@ export default function TaskManagement() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black-700 mb-2">
                   Description
                 </label>
                 <textarea
@@ -577,7 +577,7 @@ export default function TaskManagement() {
                           onChange={() => toggleMember(user._id)}
                           className="w-4 h-4 text-indigo-600"
                         />
-                        <span className="text-sm">
+                        <span className="text-sm text-black-700">
                           {user.fullName} ({user.email})
                         </span>
                       </label>
