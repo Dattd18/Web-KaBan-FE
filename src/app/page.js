@@ -226,7 +226,7 @@ export default function LoginPage() {
                       id="email"
                       name="email"
                       autoComplete="email"
-                      className="appearance-none block w-full h-12 pl-10 pr-3 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
+                      className="text-black-700 appearance-none block w-full h-12 pl-10 pr-3 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
                       placeholder="example@gmail.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -243,20 +243,20 @@ export default function LoginPage() {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block text-sm font-semibold text-gray-700 mb-1.5"
+                    className="block text-sm font-semibold text-black-700 mb-1.5"
                   >
                     Mật khẩu
                   </label>
                   <div className="relative group">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Lock className="h-5 w-5 text-gray-400 group-focus-within:text-indigo-500 transition-colors" />
+                      <Lock className="h-5 w-5 text-black-700 group-focus-within:text-indigo-500 transition-colors" />
                     </div>
                     <input
                       id="password"
                       name="password"
                       type={showPassword ? "text" : "password"}
                       autoComplete="current-password"
-                      className="appearance-none block w-full h-12 pl-10 pr-10 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
+                      className="text-black-700 appearance-none block w-full h-12 pl-10 pr-10 py-2 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent sm:text-sm transition-all"
                       placeholder="••••••••"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}

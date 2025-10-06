@@ -520,7 +520,7 @@ export default function TaskManagement() {
         <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-gray-200 rounded-lg p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-black-500">Create New Board</h3>
+              <h3 className="text-xl font-bold text-black-700">Create New Board</h3>
               <button onClick={() => setShowBoardModal(false)}>
                 <X size={24} className="text-gray-500 hover:text-gray-700" />
               </button>
@@ -538,7 +538,7 @@ export default function TaskManagement() {
                   onChange={(e) =>
                     setBoardForm({ ...boardForm, name: e.target.value })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="text-black-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
@@ -552,7 +552,7 @@ export default function TaskManagement() {
                   onChange={(e) =>
                     setBoardForm({ ...boardForm, description: e.target.value })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 h-24 resize-none"
+                  className="text-black-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 h-24 resize-none"
                 />
               </div>
 
@@ -562,7 +562,7 @@ export default function TaskManagement() {
                 </label>
                 <div className="space-y-2 max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-2">
                   {users.length === 0 ? (
-                    <p className="text-sm text-gray-500 text-center py-4">
+                    <p className="text-sm text-black-700 text-center py-4">
                       No users available
                     </p>
                   ) : (
@@ -575,7 +575,7 @@ export default function TaskManagement() {
                           type="checkbox"
                           checked={boardForm.members.includes(user._id)}
                           onChange={() => toggleMember(user._id)}
-                          className="w-4 h-4 text-indigo-600"
+                          className="text-black-700 w-4 h-4 text-indigo-600"
                         />
                         <span className="text-sm text-black-700">
                           {user.fullName} ({user.email})
@@ -606,7 +606,7 @@ export default function TaskManagement() {
         <div className="fixed inset-0  bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-gray-200 rounded-lg p-6 w-full max-w-3xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold">Create New Task</h3>
+              <h3 className="text-xl font-bold text-black-700">Create New Task</h3>
               <button onClick={() => setShowTaskModal(false)}>
                 <X size={24} className="text-gray-500 hover:text-gray-700" />
               </button>
@@ -624,7 +624,7 @@ export default function TaskManagement() {
                   onChange={(e) =>
                     setTaskForm({ ...taskForm, title: e.target.value })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="text-black-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
@@ -638,7 +638,7 @@ export default function TaskManagement() {
                   onChange={(e) =>
                     setTaskForm({ ...taskForm, description: e.target.value })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 h-24 resize-none"
+                  className="text-black-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 h-24 resize-none"
                 />
               </div>
 
@@ -651,7 +651,7 @@ export default function TaskManagement() {
                   onChange={(e) =>
                     setTaskForm({ ...taskForm, status: e.target.value })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="text-black-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   {STATUSES.map((status) => (
                     <option key={status.id} value={status.id}>
@@ -671,7 +671,7 @@ export default function TaskManagement() {
                   onChange={(e) =>
                     setTaskForm({ ...taskForm, dueDate: e.target.value })
                   }
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="text-black-700 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 />
               </div>
 
@@ -679,7 +679,7 @@ export default function TaskManagement() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Assign To
                 </label>
-                <div className="space-y-2 max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-2">
+                <div className="text-black-700 space-y-2 max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-2">
                   {boardMembers.length === 0 ? (
                     <p className="text-sm text-gray-500 text-center py-4">
                       No members in this board
@@ -694,7 +694,7 @@ export default function TaskManagement() {
                           type="checkbox"
                           checked={taskForm.assignees.includes(user._id)}
                           onChange={() => toggleMember(user._id, true)}
-                          className="w-4 h-4 text-indigo-600"
+                          className="text-black-700 w-4 h-4 text-indigo-600"
                         />
                         <span className="text-sm">
                           {user.fullName || user.email}
@@ -813,12 +813,12 @@ export default function TaskManagement() {
                 <h3 className="text-2xl font-semibold text-gray-800">
                   {selectedTask.title}
                 </h3>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-sm text-black-700 mt-1">
                   in {STATUSES.find((s) => s.id === selectedTask.status)?.name}
                 </p>
               </div>
               <button onClick={() => setShowTaskDetailModal(false)}>
-                <X size={24} className="text-gray-500 hover:text-gray-700" />
+                <X size={24} className="text-black-700 hover:text-gray-700" />
               </button>
             </div>
 
@@ -828,20 +828,20 @@ export default function TaskManagement() {
               <div className="space-y-4">
                 {selectedTask.description && (
                   <div>
-                    <h4 className="text-sm font-semibold text-gray-700 mb-2">
+                    <h4 className="text-sm font-semibold text-black-700 mb-2">
                       Description
                     </h4>
-                    <p className="text-gray-600">{selectedTask.description}</p>
+                    <p className="text-black-600">{selectedTask.description}</p>
                   </div>
                 )}
 
                 <div className="grid grid-cols-2 gap-4">
                   {selectedTask.dueDate && (
                     <div>
-                      <h4 className="text-xs font-semibold text-gray-600 mb-1">
+                      <h4 className="text-xs font-semibold text-black-600 mb-1">
                         Due Date
                       </h4>
-                      <div className="flex items-center gap-2 text-sm text-gray-700">
+                      <div className="flex items-center gap-2 text-sm text-black-700">
                         <Calendar size={16} />
                         {new Date(selectedTask.dueDate).toLocaleDateString(
                           "vi-VN"
@@ -853,14 +853,14 @@ export default function TaskManagement() {
                   {selectedTask.assignees &&
                     selectedTask.assignees.length > 0 && (
                       <div>
-                        <h4 className="text-xs font-semibold text-gray-600 mb-1">
+                        <h4 className="text-xs font-semibold text-black-600 mb-1">
                           Assignees
                         </h4>
                         <div className="flex items-center gap-2 flex-wrap">
                           {selectedTask.assignees.map((assignee) => (
                             <span
                               key={assignee._id}
-                              className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full"
+                              className="text-black-700 px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full"
                             >
                               {assignee.fullName || assignee.email}
                             </span>
@@ -874,7 +874,7 @@ export default function TaskManagement() {
                 {selectedTask.attachments &&
                   selectedTask.attachments.length > 0 && (
                     <div>
-                      <h4 className="text-sm font-semibold text-gray-700 mb-2">
+                      <h4 className="text-sm font-semibold text-black-700 mb-2">
                         Task Attachments
                       </h4>
                       <div className="space-y-2">
@@ -884,14 +884,14 @@ export default function TaskManagement() {
                             href={attachment.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition"
+                            className="flex items-center gap-2 p-2 bg-black-50 rounded-lg hover:bg-black-100 transition"
                           >
                             {attachment.type === "image" ? (
                               <ImageIcon size={16} className="text-blue-500" />
                             ) : (
-                              <FileText size={16} className="text-gray-500" />
+                              <FileText size={16} className="text-black-500" />
                             )}
-                            <span className="text-sm text-gray-700 flex-1 truncate">
+                            <span className="text-sm text-black-700 flex-1 truncate">
                               {attachment.name}
                             </span>
                             <span className="text-xs text-blue-600">
