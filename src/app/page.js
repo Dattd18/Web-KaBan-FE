@@ -243,7 +243,7 @@ export default function LoginPage() {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block text-sm font-semibold text-black-700 mb-1.5"
+                    className="block text-sm font-semibold text-gray-700 mb-1.5"
                   >
                     Mật khẩu
                   </label>
